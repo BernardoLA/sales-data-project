@@ -1,7 +1,7 @@
-from models import *
-from config import *
-from utils import *
-from processing import *
+from config import spark_session, INPUT_FILE, OUTPUT_FILE
+from utils import read_csv
+from processing import process_output_one
+from models import sch_emp_exp_calls, sch_emp_per_sales
 
 def main():
    df_emp_exp_and_calls = read_csv(spark=spark_session, file_path=f"{INPUT_FILE}\dataset_one.csv",df_schema=sch_emp_exp_calls)

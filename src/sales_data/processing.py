@@ -1,4 +1,4 @@
-from pyspark.sql.functions import col, desc
+from pyspark.sql.functions import desc
 from sales_data.utils import write_csv, DataFrame
 
 def process_output_one(df_emp_exp_and_calls:DataFrame, 
