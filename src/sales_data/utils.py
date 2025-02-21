@@ -1,5 +1,4 @@
 from pyspark.sql import SparkSession, DataFrame
-from pydantic import BaseModel
 from pyspark.sql.types import StructType
 
 
