@@ -5,7 +5,6 @@ from sales_data.utils import write_csv, DataFrame
 def process_output_one(
     df_emp_exp_and_calls: DataFrame, df_emp_per_and_sales: DataFrame, df_output_path
 ) -> None:
-
     # rename id before join to avoid COLUMN_ALREADY_EXISTS error
     df_emp_per_and_sales = df_emp_per_and_sales.withColumnRenamed("id", "emp_id")
 
