@@ -10,6 +10,7 @@ def spark():
     # Set up a Spark session for testing
     return SparkSession.builder.master("local[1]").appName("pytest").getOrCreate()
 
+
 def test_process_output_one(spark):
     # Create test DataFrames
     emp_exp_calls_data = [
@@ -36,7 +37,15 @@ def test_process_output_one(spark):
         (1, "Alice", "2588 VD, Kropswolde", 5000.0, "IT", 50, 30),
         (2, "Bob", "1808 KR, Benningbroek", 4500.0, "IT", 40, 20),
     ]
-    expected_columns = ["id", "name", "address", "sales_amount", "area", "calls_made", "calls_successful"]
+    expected_columns = [
+        "id",
+        "name",
+        "address",
+        "sales_amount",
+        "area",
+        "calls_made",
+        "calls_successful",
+    ]
     expected_df = spark.createDataFrame(expected_data, expected_columns)
 
     # Mock write_csv to capture the DataFrame passed to it
@@ -50,4 +59,6 @@ def test_process_output_one(spark):
         actual_df = mock_write.call_args[0][0]
 
         # Compare actual vs expected DataFrame
-        assert_df_equality(actual_df, expected_df, ignore_nullable=True, ignore_column_order=True)
+        assert_df_equality(
+            actual_df, expected_df, ignore_nullable=True, ignore_column_order=True
+        )
