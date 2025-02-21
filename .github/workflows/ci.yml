@@ -92,12 +92,12 @@ jobs:
           source venv/bin/activate
           pip install --upgrade pip
           pip install ruff
-             
+
       - name: Lint code with Ruff
         run: |
           source venv/bin/activate
-          ruff check --output-format=github --target-version=py10
+          ruff check --output-format=github --target-version=py310
 
       - name: Check code formatting with Ruff
-        run: ruff format --diff --target-version=py39
+        run: ruff format --diff --target-version=py310
         continue-on-error: true
