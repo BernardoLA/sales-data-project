@@ -10,6 +10,9 @@ def spark():
     # Set up a Spark session for testing
     return SparkSession.builder.master("local[1]").appName("pytest").getOrCreate()
 
+def test_failed():
+    assert 1 == 2
+
 def test_process_output_one(spark):
     # Create test DataFrames
     emp_exp_calls_data = [
