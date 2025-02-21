@@ -7,7 +7,7 @@
 # def test_write_csv(spark, tmp_path):
 #     df = ...  # Create small PySpark DataFrame
 #     output_path = tmp_path / "output"
-    
+
 #     write_csv(df, str(output_path))
-    
+
 #     assert (output_path / "part-00000.csv").exists()  # Check if file was written

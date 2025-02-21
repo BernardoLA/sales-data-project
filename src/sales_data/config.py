@@ -2,7 +2,11 @@ from pyspark.sql import SparkSession
 from pathlib import Path
 
 # Spark Session
-spark_session = SparkSession.builder.master("local[*]").appName("ABN AMRO Programming Exercise").getOrCreate()
+spark_session = (
+    SparkSession.builder.master("local[*]")
+    .appName("ABN AMRO Programming Exercise")
+    .getOrCreate()
+)
 
 # global path variables
 BASE_DIR = Path(__file__).resolve().parent

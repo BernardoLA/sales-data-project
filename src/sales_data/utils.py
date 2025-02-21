@@ -1,8 +1,8 @@
-from pyspark.sql import SparkSession, DataFrame 
-from pydantic import BaseModel
+from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.types import StructType
 
-def read_csv(spark:SparkSession, file_path: str, df_schema:StructType) -> DataFrame:
+
+def read_csv(spark: SparkSession, file_path: str, df_schema: StructType) -> DataFrame:
     """
     Read a CSV file into a Spark DataFrame.
     Args:
@@ -13,7 +13,8 @@ def read_csv(spark:SparkSession, file_path: str, df_schema:StructType) -> DataFr
     """
     return spark.read.schema(df_schema).option("header", "true").csv(file_path)
 
-def write_csv(df:DataFrame, output_dir: str) -> None:
+
+def write_csv(df: DataFrame, output_dir: str) -> None:
     """
     Write a DataFrame to a CSV file in the specified directory.
     Args:
