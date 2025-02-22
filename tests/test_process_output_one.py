@@ -1,6 +1,6 @@
 from chispa.dataframe_comparer import assert_df_equality
 from unittest.mock import patch
-from sales_data.processing import process_output_one
+from sales_data.processing import process_it_data
 import pytest
 from pyspark.sql import SparkSession
 
@@ -11,7 +11,7 @@ def spark():
     return SparkSession.builder.master("local[1]").appName("pytest").getOrCreate()
 
 
-def test_process_output_one(spark):
+def test_process_it_data(spark):
     # Create test DataFrames
     emp_exp_calls_data = [
         (1, "IT", 50, 30),
@@ -50,7 +50,7 @@ def test_process_output_one(spark):
 
     # Mock write_csv to capture the DataFrame passed to it
     with patch("sales_data.processing.write_csv") as mock_write:
-        process_output_one(df_emp_exp_calls, df_emp_per_sales, "dummy_output_path")
+        process_it_data(df_emp_exp_calls, df_emp_per_sales, "dummy_output_path")
 
         # Ensure write_csv was called once and check the arguments passed
         mock_write.assert_called_once()
