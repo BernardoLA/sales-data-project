@@ -13,34 +13,32 @@ def spark():
 
 def test_process_it_data(spark: SparkSession):
     # Create test DataFrames
-    emp_exp_calls_data = [
-        (1, "IT", 50, 30),
-        (2, "IT", 40, 20),
-        (3, "IT", 60, 40),
-        (4, "Sales", 70, 50),  # This should be filtered out
-    ]
-    emp_exp_calls_columns = ["id", "area", "calls_made", "calls_successful"]
-    df_emp_exp_calls = spark.createDataFrame(emp_exp_calls_data, emp_exp_calls_columns)
-
-    emp_per_sales_data = [
-        (1, "Alice", "2588 VD, Kropswolde", 5000.0),
-        (2, "Bob", "1808 KR, Benningbroek", 4500.0),
-        (3, "Charlie", "Thijmenweg 38, 7801 OC, Grijpskerk", 6000.0),
-        (4, "David", "4273 SW, Wirdum Gn", 7000.0),  # This should be filtered out
-    ]
-    emp_per_sales_columns = ["emp_id", "name", "address", "sales_amount"]
-    df_emp_per_sales = spark.createDataFrame(emp_per_sales_data, emp_per_sales_columns)
-
-    # Expected output DataFrame (filtered for "IT", sorted by sales_amount, top 100)
-    expected_data = [
-        (3, "Charlie", "Thijmenweg 38, 7801 OC, Grijpskerk", 6000.0, "IT", 60, 40),
+    df_data = [
         (1, "Alice", "2588 VD, Kropswolde", 5000.0, "IT", 50, 30),
         (2, "Bob", "1808 KR, Benningbroek", 4500.0, "IT", 40, 20),
+        (3, "Charlie", "Thijmenweg 38, 7801 OC, Grijpskerk", 6000.0, "IT", 60, 40),
+        (4, "John", "Janlaan 4, 3319 GW, Rijs", 7000.0, "Sales", 20, 10),
     ]
-    expected_columns = [
+    df_columns = [
         "id",
         "name",
         "address",
+        "sales_amount",
+        "area",
+        "calls_made",
+        "calls_successful",
+    ]
+    df = spark.createDataFrame(df_data, df_columns)
+
+    expected_data = [
+        ("Thijmenweg 38, 7801 OC, Grijpskerk", "Charlie", 3, 6000.0, "IT", 60, 40),
+        ("2588 VD, Kropswolde", "Alice", 1, 5000.0, "IT", 50, 30),
+        ("1808 KR, Benningbroek", "Bob", 2, 4500.0, "IT", 40, 20),
+    ]
+    expected_columns = [
+        "address",
+        "name",
+        "id",
         "sales_amount",
         "area",
         "calls_made",
@@ -50,8 +48,7 @@ def test_process_it_data(spark: SparkSession):
 
     # Mock write_csv to capture the DataFrame passed to it
     with patch("sales_data.processing.write_csv") as mock_write:
-        process_outputs = ProcessOutputs(df_emp_exp_calls, df_emp_per_sales)
-        process_outputs.process_it_data("dummy path")
+        ProcessOutputs.process_it_data(df, "dummy path")
         # Ensure write_csv was called once and check the arguments passed
         mock_write.assert_called_once()
 

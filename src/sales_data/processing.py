@@ -1,5 +1,5 @@
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import desc, regexp_extract, col, lower
+from pyspark.sql.functions import desc, regexp_extract, lower
 from sales_data.utils import write_csv
 
 
@@ -16,7 +16,8 @@ class ProcessOutputs:
         )
         return df_joined
 
-    def process_it_data(self, df: DataFrame, output_path_it_data: str) -> None:
+    @staticmethod
+    def process_it_data(df: DataFrame, output_path_it_data: str) -> None:
         df = (
             df.filter(lower(df["area"]) == "it")
             .orderBy(desc("sales_amount"))
@@ -45,5 +46,5 @@ class ProcessOutputs:
 
     def run_all_outputs(self, output_path_it_data: str, output_path_mark_add_info: str):
         df = self.join_df1_df2()
-        self.process_it_data(df, output_path_it_data)
+        ProcessOutputs.process_it_data(df, output_path_it_data)
         self.process_marketing_address_info(df, output_path_mark_add_info)
