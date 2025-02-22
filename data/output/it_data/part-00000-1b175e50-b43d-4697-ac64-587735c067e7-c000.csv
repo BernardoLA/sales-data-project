@@ -1,0 +1,101 @@
+area,calls_made,calls_successful,id,address,name,sales_amount
+IT,70,54,39,"6805 VT, Oosterwijtwerd",Ali Hollander,99653.9609375
+IT,87,45,349,"5472 YM, Zwagerbosch",Hendrik de Keijser,99333.34375
+IT,44,22,617,"8803 OK, Amerongen",Dylano van Haspengouw Hesbaye-de Koning,99218.0078125
+IT,67,44,907,"3897 OP, De Groeve",Hidde van Grondelle,98566.7890625
+IT,60,57,982,"Aidensteeg 81, 4488 CE, Achterveld",Puck Tins,98552.7265625
+IT,53,37,763,"2211 YL, Appelscha",Mare Gellemeyer,98367.3671875
+IT,44,23,463,"Lisepad 8, 3763 PO, Winschoten",Zoë Mercks,98292.6875
+IT,64,50,194,"Evadreef 37, 2493 RV, Nijeholtwolde",Pepijn Olthof,98182.3984375
+IT,58,32,454,"8604 UO, Laren",Wout van het Heerenveen-van Schweinfurt,98101.890625
+IT,23,12,786,"Nathansingel 99, 6891 SN, Oudwoude",Florian Wilcken,97885.328125
+IT,46,31,51,"Pienlaan 5, 7356 GF, Kerkdriel",Luuk Pratt,97823.40625
+IT,75,38,779,"1492 LZ, Spanbroek",Hannah van den Heuvel,97767.7421875
+IT,92,79,561,"1804 JN, Ohé en Laak",Jonas Wutke,97673.921875
+IT,5,2,373,"Robinstraat 708, 1232 LC, Maasbommel",Sarah van den Broek,95991.28125
+IT,27,18,892,"Linnbaan 88, 3053 NW, Parrega",Giel Schwartsbach,95911.0
+IT,53,30,243,"Mikering 34, 9750 IW, Heveadorp",Noortje Dekker,95600.6796875
+IT,40,37,686,"Tieslaan 964, 8483 KE, Zwolle",Mason Bastiaanse,94986.7421875
+IT,35,28,824,"Xavisingel 17, 1542 RV, Itens",Eline Nek,94978.3671875
+IT,54,47,443,"5418 FU, Tjerkgaast",Kevin de Wit,94939.828125
+IT,8,5,437,"Dylanosingel 182, 6447 KF, Ter Aard",Noëlle Verhagen-Spruyt,94785.1484375
+IT,56,29,909,"Elisabaan 94, 3404 QM, Overdinkel",Max Eerden,94735.6484375
+IT,53,32,56,"Ceylinpad 0, 2862 MH, Katwijk",Noah Speijer,94710.359375
+IT,64,40,71,"Fienring 990, 7936 TJ, Made",Dylan Kok-Kerkhof,94432.140625
+IT,12,10,170,"3680 HU, Wijnaldum",Esila Janssen,94016.3515625
+IT,14,11,124,"Rickpad 001, 2566 MF, Bleiswijk",Lize van der Maath-Schrant,94004.9296875
+IT,44,31,248,"1848 AH, Naarden",Dave Scharroo-van der Mast,93888.5
+IT,45,42,47,"Sarahbaan 8, 5950 XM, Tienhoven",Alexander van Ooyen-Arnold,93859.21875
+IT,50,37,878,"6392 MJ, Knegsel",Renske Waardeloo-van Breugel,93452.703125
+IT,73,46,174,"7860 ZM, Mariënberg",Indy van der Horst-Salet,93396.5703125
+IT,95,60,204,"Elineweg 857, 9102 IZ, Miedum",Alicia de Vroege,93277.5703125
+IT,38,30,393,"9323 DA, Heijningen",Mila Huurdeman-Molegraaf,91850.15625
+IT,82,77,398,"2425 LC, Den Burg",Dean Westerbeek,91569.5
+IT,22,19,426,"Milolaan 219, 4299 RD, Guttecoven",Aaliyah Jeggij,91420.578125
+IT,91,74,154,"Pietersteeg 326, 7140 FP, 's-Gravendeel",Tirza van Leuven-de Bruin,91177.5078125
+IT,89,66,271,"3481 KH, Nieuwlande Coevorden",Julie Risma,90994.4296875
+IT,43,39,374,"7178 AD, Munstergeleen",Fleur Pasman,89460.5
+IT,72,46,369,"6462 LV, Rijpwetering",Floris Perrono-Zijlmans,89411.9375
+IT,52,29,994,"Mialaan 226, 9780 GJ, Den Dolder",Victoria Schiffer,89107.0625
+IT,22,11,555,"Yassinboulevard 7, 6961 CQ, Sint Maarten",Robin Palman-Smith,88980.0390625
+IT,82,72,486,"Johannespad 827, 7601 IY, Terneuzen",Romy Slagmolen,88904.390625
+IT,31,18,141,"Woutlaan 9, 7571 TN, Wirdum",Sylvie van der Velden,88257.046875
+IT,66,42,917,"1754 EE, Veldhoven",Saar Eerden,87928.3828125
+IT,16,9,424,"Saarweg 5, 6458 GP, Hilvarenbeek",Liza van der Linden,87700.3515625
+IT,79,57,671,"5871 BD, Leermens",Lisa van de Wal-François,86741.0625
+IT,80,76,159,"5148 ZF, Vleuten",Amy Roessink-van Beieren,86228.8984375
+IT,7,6,479,"Janlaan 4, 3319 GW, Rijs",Elize Weyland,85860.7109375
+IT,8,5,852,"6360 MF, De Wilp",Noud van Goerle,85799.84375
+IT,60,37,18,"9040 DW, Nijkerkerveen",Charlotte Belpere,85633.3203125
+IT,86,81,495,"Elisabethstraat 98, 5915 CF, Kloetinge",Joshua Olykan,85253.546875
+IT,65,45,197,"Jesperlaan 362, 5618 DT, Jubbega",Cato van der Velden,85219.9296875
+IT,58,48,517,"Elizabethweg 7, 4151 AA, Beuningen",Naud de Man-Evers,85162.453125
+IT,97,50,861,"7093 FT, Voorburg",Joep Sas-Speijer,84900.4765625
+IT,85,44,108,"Stijndreef 6, 9288 XU, Plasmolen",Sophia ter Waarbeek,84662.25
+IT,58,43,488,"Teunlaan 4, 6407 BF, Ballum",Danique van der Linden,84648.40625
+IT,35,20,614,"Willemstraat 47, 5368 VV, Lith",Jari Bosch,84501.6796875
+IT,52,47,275,"Maralaan 262, 5376 GP, Nieuw-Weerdinge",Hailey van Dam-Kalman,83334.5703125
+IT,93,68,423,"Kickdreef 29, 1759 YC, Valburg",Cornelis Aeije,83156.2734375
+IT,34,31,347,"Kianboulevard 2, 7471 ZB, Hoogmade",Fleur Verbeek,82320.59375
+IT,93,53,557,"5338 EB, Ansen",Sienna Roukes-van Suinvorde,81978.40625
+IT,57,43,358,"2457 YS, Leur",Daphne Knuf-Stinis,81774.9296875
+IT,6,4,413,"4147 WG, Scheemda",Elize Van Bragt,81120.640625
+IT,59,49,604,"Taraboulevard 05, 6128 XZ, Huisseling",Philip Mathurin-Recer,81087.6328125
+IT,36,19,285,"Sennastraat 693, 2716 EW, Achtmaal",Marijn Rubben,80658.6328125
+IT,76,55,128,"Aylinlaan 78, 5251 VO, Amen",Vince van Berkel,80494.6171875
+IT,69,41,535,"Maxbaan 148, 2462 VM, Firdgum",Indy Wolters,80363.9375
+IT,13,11,355,"4556 OX, Uitwellingerga",Giel de Backer,79834.296875
+IT,12,10,871,"Pleunboulevard 814, 3362 GF, Spanbroek",Amira de Bock,79504.453125
+IT,15,9,341,"Lorenzoring 02, 9181 YM, Opmeer",Lynn Noordijk,79267.578125
+IT,26,18,841,"Chloésteeg 4, 2265 AI, Vortum-Mullem",Eliza Oennen,79017.4921875
+IT,66,62,939,"Danielring 942, 9083 BL, Ossendrecht",Fabiënne van der Strigt,78879.9765625
+IT,14,8,287,"2375 JO, Dalem",Emma van Daal-Vos,78659.75
+IT,31,21,840,"8539 JQ, Woltersum",Daan Meijer,78014.90625
+IT,23,12,543,"Jortboulevard 5, 8771 AW, 't Goy",Nikki de Bruyn-van Gemert,77682.2578125
+IT,28,20,9,"7149 RI, Purmerend",Aron Roukes,75983.5234375
+IT,14,7,846,"6885 VS, Nieuw Heeten",Tygo van Maasgouw,75905.0078125
+IT,37,27,417,"6423 RG, Mookhoek",Joost van Gent,75894.8828125
+IT,30,18,1000,"Luukpad 54, 2173 FA, Oude-Tonge",Siem Broek,75689.3984375
+IT,31,26,25,"9049 DM, Hollandscheveld",Isabel Heribert van Laon,75313.03125
+IT,100,55,623,"5033 UJ, Den Hout",Lisanne van der Ploeg-Gerrits,74479.9375
+IT,45,42,990,"Silkepad 279, 1099 RJ, Posterholt",Mart Romijn-Veltman,74468.75
+IT,9,7,153,"5355 NV, Oirlo",Jamie Brandt,73648.4921875
+IT,31,29,803,"1750 XJ, Meterik",Melle Kleybrink-Fremie,73543.84375
+IT,58,30,234,"1403 DS, Warder",Finn van der Laan,73153.71875
+IT,43,23,382,"5108 KD, Boxmeer",Guus Fremie,72468.09375
+IT,16,8,893,"Dylandreef 0, 4620 JH, Guttecoven",Phileine Boer-van Buuren,71895.359375
+IT,15,11,493,"6155 AJ, Emmeloord",Chloë van den Heuvel-Brandt,71739.7578125
+IT,66,47,573,"8628 MG, Banholt",Myrthe Unruoch Hunerik,71249.890625
+IT,64,53,929,"8374 RG, Dalerveen",Maxim Brandt,71095.796875
+IT,96,83,946,"1061 QY, Peperga",Ruben Rehorst-van der Laarse,70505.0625
+IT,72,67,608,"Kayleebaan 834, 3103 IN, Garderen",Jonas Goedhart,70502.6328125
+IT,65,61,860,"4804 JX, Teerns",Esther Werdes,70426.2421875
+IT,76,46,665,"3381 TO, Niezijl",Elias Louws,70307.2890625
+IT,53,39,192,"Stansingel 820, 2485 RE, Wadenoijen",Luca van der Veen,69625.390625
+IT,67,50,165,"2090 NY, Loon",Kyano Roodesteijn,69557.921875
+IT,42,31,885,"Luukbaan 213, 5284 SE, Westernieland",Melissa Claassen-van Maasgouw,69123.1796875
+IT,48,45,700,"2549 DA, Jellum",Amélie Höning,68690.7421875
+IT,59,52,121,"2809 NN, Kommerzijl",Youssef Courtier,68241.546875
+IT,35,23,57,"Michalaan 792, 2560 BE, Zundert",Valentijn Buijs,68194.34375
+IT,1,0,792,"9972 XB, Klazienaveen",Wouter Mol,67995.2734375
+IT,87,44,433,"Jortdreef 278, 9826 DW, Blauwestad",Kevin van der Ven,67819.0234375
