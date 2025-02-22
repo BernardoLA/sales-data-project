@@ -1,6 +1,6 @@
 name: CI Pipeline
 
-on: pull_request
+on: [push, pull_request]
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-  test_it_data:
+  test:
     runs-on: ubuntu-latest
     needs: build
 
@@ -42,37 +42,11 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run IT Data tests
+      - name: Run tests with pytest
         run: |
           source venv/bin/activate
           export PYTHONPATH=$(pwd)/src  
-          pytest tests/test_process_it_data/
-
-  test_marketing_address_info:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Run Marketing Address Info tests
-        run: |
-          source venv/bin/activate
-          export PYTHONPATH=$(pwd)/src  
-          pytest tests/test_process_marketing_address_info/
+          pytest tests/
 
   black:
     runs-on: ubuntu-latest
