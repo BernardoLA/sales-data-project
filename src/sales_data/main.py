@@ -10,7 +10,7 @@ from sales_data.models import (
 
 
 def main():
-    logger.info("Starting Pipeline...")
+    logger.info("Starting Application...")
     ## Read all csv files and validate records
     # Validate with Pydantic lines with bad input
 

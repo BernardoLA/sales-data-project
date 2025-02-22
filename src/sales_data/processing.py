@@ -26,15 +26,16 @@ class ProcessOutputs:
         )
         write_csv(df, output_path_it_data)
 
+    @staticmethod
     def process_marketing_address_info(
-        self, df: DataFrame, output_path_mark_add_info: str
+        df: DataFrame, output_path_mark_add_info: str
     ) -> None:
         """
         Extracts zip code from the address column.
 
         :param df: Input PySpark DataFrame
         :param output_path_mark_add_info: output path of resulting df
-        :return: csv with an additional 'zip_code' column
+        :return: csv with address and zip_code column
         """
         zip_code_pattern = r"(\d{4} [A-Z]{2})"
         df = df.filter(lower(df["area"]) == "marketing")
@@ -47,4 +48,4 @@ class ProcessOutputs:
     def run_all_outputs(self, output_path_it_data: str, output_path_mark_add_info: str):
         df = self.join_df1_df2()
         ProcessOutputs.process_it_data(df, output_path_it_data)
-        self.process_marketing_address_info(df, output_path_mark_add_info)
+        ProcessOutputs.process_marketing_address_info(df, output_path_mark_add_info)
