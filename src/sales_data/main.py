@@ -1,23 +1,51 @@
-from config import spark_session, INPUT_FILE, OUTPUT_FILE
-from utils import read_csv
-from processing import process_output_one
-from models import sch_emp_exp_calls, sch_emp_per_sales
+from sales_data import INPUT_FILE, OUTPUT_FILE, logger, spark
+from sales_data.utils import ReadAndValidateCsvData
+from sales_data.processing import ProcessOutputs
+from sales_data.models import (
+    sch_emp_exp_calls,
+    sch_emp_per_sales,
+    EmployeeExpertiseAndCallsInfo,
+    EmployePersonalAndSalesInfo,
+)
 
 
 def main():
-    df_emp_exp_and_calls = read_csv(
-        spark=spark_session,
-        file_path=f"{INPUT_FILE}\dataset_one.csv",
-        df_schema=sch_emp_exp_calls,
+    logger.info("Starting Application...")
+    ## Read all csv files and validate records
+    # Validate with Pydantic lines with bad input
+
+    employee_expertise_data = ReadAndValidateCsvData(
+        sch_emp_exp_calls,
+        EmployeeExpertiseAndCallsInfo,
+        f"{INPUT_FILE}\dataset_one.csv",
     )
-    df_emp_per_and_sales = read_csv(
-        spark=spark_session,
-        file_path=f"{INPUT_FILE}\dataset_two.csv",
-        df_schema=sch_emp_per_sales,
+    employee_personal_data = ReadAndValidateCsvData(
+        sch_emp_per_sales, EmployePersonalAndSalesInfo, f"{INPUT_FILE}\dataset_two.csv"
     )
-    process_output_one(
-        df_emp_exp_and_calls, df_emp_per_and_sales, f"{OUTPUT_FILE}/it_data"
+
+    # Store df with employee expertise data (dataset_one)
+    df_expertise_validated_data = employee_expertise_data.validated_df(spark)
+
+    # Store df with employee expertise data (dataset_two)
+    df_personal_validated_data = employee_personal_data.validated_df(spark)
+
+    ## Process the outputs
+    process_outputs = ProcessOutputs(
+        df_expertise_validated_data, df_personal_validated_data
     )
+    # process_outputs.process_it_data(f"{OUTPUT_FILE}/it_data")
+    process_outputs.run_all_outputs(
+        f"{OUTPUT_FILE}/it_data", f"{OUTPUT_FILE}/marketing_address_info"
+    )
+
+    # Output 1 : Top performers in IT Department
+    # df_employee_full_info = process_it_data(
+    #     df_expertise_validated_data,
+    #     df_personal_validated_data,
+    #     f"{OUTPUT_FILE}/it_data",
+    # # )
+    # # Output2: List of addresses of agents selling Marketing products
+    # process_marketing_address_info(df_employee_full_info)
 
 
 if __name__ == "__main__":
