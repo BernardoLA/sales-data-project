@@ -1,5 +1,5 @@
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import desc, regexp_extract, lower
+from pyspark.sql.functions import desc, regexp_extract, lower, sum, format_number
 from sales_data.utils import write_csv
 
 
@@ -45,7 +45,29 @@ class ProcessOutputs:
         df = df.select("address", "zip_code")
         write_csv(df, output_path_mark_add_info)
 
-    def run_all_outputs(self, output_path_it_data: str, output_path_mark_add_info: str):
+    @staticmethod
+    def process_dpt_sales_info(df: DataFrame, output_path_dpt_sales_info: str) -> None:
+        df = (
+            df.groupBy(df["area"])
+            .agg(
+                sum("sales_amount").alias("sales_amount"),
+                (sum("calls_successful") / sum("calls_made") * 100).alias(
+                    "success_rate (%)"
+                ),
+            )
+            .withColumn("sales_amount", format_number("sales_amount", 2))
+            .orderBy(["sales_amount", "success_rate (%)"], ascending=[False, False])
+        )
+        df.show()
+        write_csv(df, output_path_dpt_sales_info)
+
+    def run_all_outputs(
+        self,
+        output_path_it_data: str,
+        output_path_mark_add_info: str,
+        output_path_dpt_sales_info: str,
+    ):
         df = self.join_df1_df2()
         ProcessOutputs.process_it_data(df, output_path_it_data)
         ProcessOutputs.process_marketing_address_info(df, output_path_mark_add_info)
+        ProcessOutputs.process_dpt_sales_info(df, output_path_dpt_sales_info)

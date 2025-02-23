@@ -61,7 +61,7 @@ def test_process_it_data(spark: SparkSession):
         )
 
 
-def test_process_marketing_adress_info(spark: SparkSession):
+def test_process_marketing_address_info(spark: SparkSession):
     df_data = [
         (1, "Alice", "2588 VD, Kropswolde", 5000.0, "marketing", 50, 30),
         (2, "Bob", "1808 KR, Benningbroek", 4500.0, "MARKETING", 40, 20),

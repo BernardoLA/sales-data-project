@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.types import StructType
 from pydantic import BaseModel
 from typing import Optional
+from sales_data.config import logger
 
 
 class ReadAndValidateCsvData:
@@ -30,21 +31,20 @@ class ReadAndValidateCsvData:
             .csv(self.input_path)
         )
 
-    def _validate_record(self, record: dict) -> Optional[dict]:
-        """Validate a single record using Pydantic"""
+    def _validate_record(self, row: dict) -> Optional[dict]:
+        """Validate a single row using Pydantic"""
         try:
-            validated = self.PydanticModel(**record)
+            validated = self.PydanticModel(**row)
             return validated.model_dump()  # Convert back to dictionary if valid
         except ValueError as e:
-            print(f"Validation Error: {e} | Record: {validated} ")
+            logger.error(f"Validation Error: {e} | Row: {row} ")
             return None
 
     def validated_df(self, spark: SparkSession):
         """Create new spark dataframe dropping None rows"""
         dataframe = self._read_csv(spark)
         validated_data = [
-            self._validate_record(record)
-            for record in dataframe.toPandas().to_dict(orient="records")
+            self._validate_record(row.asDict()) for row in dataframe.collect()
         ]
         validated_data = [row for row in validated_data if row]
 

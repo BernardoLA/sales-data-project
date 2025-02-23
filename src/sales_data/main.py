@@ -35,17 +35,11 @@ def main():
     )
     # process_outputs.process_it_data(f"{OUTPUT_FILE}/it_data")
     process_outputs.run_all_outputs(
-        f"{OUTPUT_FILE}/it_data", f"{OUTPUT_FILE}/marketing_address_info"
+        f"{OUTPUT_FILE}/it_data",
+        f"{OUTPUT_FILE}/marketing_address_info",
+        f"{OUTPUT_FILE}/department_breakdown",
     )
-
-    # Output 1 : Top performers in IT Department
-    # df_employee_full_info = process_it_data(
-    #     df_expertise_validated_data,
-    #     df_personal_validated_data,
-    #     f"{OUTPUT_FILE}/it_data",
-    # # )
-    # # Output2: List of addresses of agents selling Marketing products
-    # process_marketing_address_info(df_employee_full_info)
+    logger.info("Closing Application...")
 
 
 if __name__ == "__main__":
