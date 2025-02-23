@@ -35,8 +35,8 @@ class ReadAndValidateCsvData:
         """Validate a single row using Pydantic"""
         try:
             validated = self.PydanticModel(**row)
-            return validated.model_dump()  # Convert back to dictionary if valid
-        except ValueError as e:
+            return validated.model_dump()
+        except (ValueError, AttributeError) as e:
             logger.error(f"Validation Error: {e} | Row: {row} ")
             return None
 

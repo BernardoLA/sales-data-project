@@ -150,3 +150,21 @@ calls_made
 2025-02-23 18:03:28,826 - INFO - Starting Application...
 2025-02-23 18:05:01,121 - INFO - Closing Application...
 2025-02-23 18:05:01,149 - INFO - Closing down clientserver connection
+2025-02-23 22:16:29,277 - INFO - Starting Application...
+2025-02-23 22:16:33,214 - ERROR - Validation Error: 1 validation error for EmployeeExpertiseAndCallsInfo
+id
+  Input should be a valid integer [type=int_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.10/v/int_type | Row: {'id': None, 'area': 'IT', 'calls_made': 54, 'calls_successful': 41} 
+2025-02-23 22:17:33,332 - INFO - Closing Application...
+2025-02-23 22:17:33,343 - INFO - Closing down clientserver connection
+2025-02-23 22:21:21,108 - INFO - Starting Application...
+2025-02-23 22:21:25,882 - ERROR - Validation Error: 1 validation error for EmployeeExpertiseAndCallsInfo
+id
+  Input should be a valid integer [type=int_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.10/v/int_type | Row: {'id': None, 'area': 'IT', 'calls_made': 1, 'calls_successful': 0} 
+2025-02-23 22:21:25,884 - ERROR - Validation Error: 1 validation error for EmployeeExpertiseAndCallsInfo
+id
+  Input should be a valid integer [type=int_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.10/v/int_type | Row: {'id': None, 'area': 'IT', 'calls_made': 70, 'calls_successful': 54} 
+2025-02-23 22:22:25,148 - INFO - Closing Application...
+2025-02-23 22:22:25,191 - INFO - Closing down clientserver connection
