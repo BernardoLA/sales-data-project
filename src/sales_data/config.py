@@ -18,7 +18,10 @@ LOG_FILE = LOG_DIR / "app.log"
 
 # Configure Rotating Logs
 logging.basicConfig(
-    handlers=[RotatingFileHandler(LOG_FILE, maxBytes=1000000, backupCount=5)],
+    handlers=[
+        RotatingFileHandler(LOG_FILE, maxBytes=1000000, backupCount=5),
+        logging.StreamHandler(),
+    ],
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
@@ -29,5 +32,6 @@ logger = logging.getLogger(__name__)
 spark = (
     SparkSession.builder.master("local[*]")
     .appName("ABN AMRO Programming Exercise")
+    .config("spark.sql.execution.arrow.pyspark.enabled", "false")
     .getOrCreate()
 )
