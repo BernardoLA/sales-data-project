@@ -1,6 +1,6 @@
 from sales_data import INPUT_FILE, OUTPUT_FILE, logger, spark
 from sales_data.utils import ReadAndValidateCsvData
-from sales_data.processing import ProcessOutputs
+from sales_data.output_processor import OutputProcessor
 from sales_data.models import (
     sch_emp_exp_calls,
     sch_emp_per_sales,
@@ -22,7 +22,6 @@ def main():
     employee_personal_data = ReadAndValidateCsvData(
         sch_emp_per_sales, EmployePersonalAndSalesInfo, f"{INPUT_FILE}\dataset_two.csv"
     )
-
     # Store df with employee expertise data (dataset_one)
     df_expertise_validated_data = employee_expertise_data.validated_df(spark)
 
@@ -30,22 +29,16 @@ def main():
     df_personal_validated_data = employee_personal_data.validated_df(spark)
 
     ## Process the outputs
-    process_outputs = ProcessOutputs(
-        df_expertise_validated_data, df_personal_validated_data
+    process_outputs = OutputProcessor(
+        df_expertise_validated_data,
+        df_personal_validated_data,
+        f"{OUTPUT_FILE}/it_data",
+        f"{OUTPUT_FILE}/marketing_address_info",
+        f"{OUTPUT_FILE}/department_breakdown",
     )
     # process_outputs.process_it_data(f"{OUTPUT_FILE}/it_data")
-    process_outputs.run_all_outputs(
-        f"{OUTPUT_FILE}/it_data", f"{OUTPUT_FILE}/marketing_address_info"
-    )
-
-    # Output 1 : Top performers in IT Department
-    # df_employee_full_info = process_it_data(
-    #     df_expertise_validated_data,
-    #     df_personal_validated_data,
-    #     f"{OUTPUT_FILE}/it_data",
-    # # )
-    # # Output2: List of addresses of agents selling Marketing products
-    # process_marketing_address_info(df_employee_full_info)
+    process_outputs.run_all_outputs()
+    logger.info("Closing Application...")
 
 
 if __name__ == "__main__":

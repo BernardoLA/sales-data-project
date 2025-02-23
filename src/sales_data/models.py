@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from pyspark.sql.types import (
     StructType,
     StructField,
@@ -20,6 +20,13 @@ class EmployeeExpertiseAndCallsInfo(BaseModel):
     calls_successful: int = Field(
         examples=[30], description="Number of successful call made by an employee", ge=0
     )
+
+    @field_validator("area", mode="before")
+    def format_area(cls, area: str) -> str:
+        if area.lower() == "it" or area.lower() == "hr":
+            return area.upper()
+        else:
+            return area.capitalize()
 
 
 class EmployePersonalAndSalesInfo(BaseModel):
