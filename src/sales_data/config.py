@@ -3,7 +3,7 @@ from pathlib import Path
 import logging
 from logging.handlers import RotatingFileHandler
 
-# global path variables
+# Global path variables
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "../../data"
 INPUT_FILE = DATA_DIR / "input/"
@@ -13,10 +13,9 @@ OUTPUT_FILE = DATA_DIR / "output/"
 # Logging settings
 LOG_DIR = Path(__file__).resolve().parent / "../logs"
 LOG_DIR.mkdir(exist_ok=True)
-
 LOG_FILE = LOG_DIR / "app.log"
 
-# Configure Rotating Logs
+# Log configuration
 logging.basicConfig(
     handlers=[
         RotatingFileHandler(LOG_FILE, maxBytes=1000000, backupCount=5),
