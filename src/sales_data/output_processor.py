@@ -48,7 +48,7 @@ class OutputProcessor:
 
         :return: Joined DataFrame containing employee personal and sales info.
         :rtype: DataFrame
-        """        
+        """
         self.df2 = self.df2.withColumnRenamed("id", "emp_id")
         df_joined = self.df1.join(
             self.df2, self.df1["id"] == self.df2["emp_id"], "inner"
@@ -62,9 +62,9 @@ class OutputProcessor:
         - Filters `self.df` by IT department employees.
         - Selects top 100 employees based on sales amount (descending order).
         - Write CSV to `self.outputpath1`.
-        
+
         :return: None
-        """        
+        """
         df_it_data = (
             self.df.filter(self.df["area"] == "IT")
             .orderBy(desc("sales_amount"))
@@ -82,7 +82,7 @@ class OutputProcessor:
         - Write CSV to `self.outputpath2`.
 
         :return: None
-        """        
+        """
         zip_code_pattern = r"(\d{4} [A-Z]{2})"
         df_marketing_address = self.df.filter(self.df["area"] == "Marketing")
         df_marketing_address = df_marketing_address.withColumn(
@@ -134,7 +134,7 @@ class OutputProcessor:
         - Saves the results to their respective output paths.
 
         :return: None
-        """        
+        """
         self.process_it_data()
         self.process_marketing_address_info()
         self.process_department_breakdown()

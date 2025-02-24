@@ -52,7 +52,18 @@ class EmployeeExpertiseAndCallsInfo(BaseModel):
 
 
 class EmployePersonalAndSalesInfo(BaseModel):
-    """Pydantic model for validating employee personal and sales records."""
+    """
+    Pydantic model for validating employee personal and sales records.
+
+    :param id: Employee's unique identifier.
+    :type id: int
+    :param name: Employee's full name.
+    :type name: str
+    :param address: Employee's address.
+    :type address: str
+    :param sales_amount: Total sales made by the employee.
+    :type sales_amount: float
+    """
 
     id: int = Field(examples=[1], description="Employee's id", gt=0)
     name: str = Field(examples=["Berat Hakker"], description="Employee's name")
@@ -63,6 +74,8 @@ class EmployePersonalAndSalesInfo(BaseModel):
     sales_amount: float = Field(
         examples=[928.28], description="Sales made by an employee", ge=0
     )
+
+
 """
 Schema definition for the Employee Expertise and Calls dataset.
 
