@@ -1,0 +1,24 @@
+Metadata-Version: 2.2
+Name: abn_sales_data_pipeline
+Version: 0.1.0
+Summary: A pipeline for processing assignment sales data.
+Home-page: https://github.com/BernardoLA/sales-data-project
+Author: Bernardo Leivas
+Author-email: bernardoleivas@gmail.com
+Requires-Python: ==3.10.10
+Requires-Dist: click==8.1.8
+Requires-Dist: pydantic==2.10.6
+Requires-Dist: pyspark==3.5.0
+Requires-Dist: chispa==0.10.1
+Provides-Extra: dev
+Requires-Dist: pytest==8.3.4; extra == "dev"
+Requires-Dist: black==25.1.0; extra == "dev"
+Requires-Dist: ruff==0.9.7; extra == "dev"
+Requires-Dist: mypy-extensions==1.0.0; extra == "dev"
+Dynamic: author
+Dynamic: author-email
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
