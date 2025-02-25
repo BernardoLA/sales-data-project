@@ -16,7 +16,6 @@ class DatasetValidator:
         self.df_schema = df_schema
         self.PydanticModel = PydanticModel
         self.dataset_path = dataset_path
-        self.invalid_records = 0
         self.dataset_name = self.extract_dataset_name()
 
     def _validate_record(self, row: dict) -> Optional[dict]:
