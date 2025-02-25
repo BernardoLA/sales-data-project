@@ -9,16 +9,16 @@ class OutputProcessor:
     """
     Processes sales data by joining DataFrames and generating reports.
 
-    :param df_expertise_calls: Firstdf_personal_sales containing employee sales data.
-    :type df_expertise_calls: DataFdf_personal_sales
+    :param df_expertise_calls: First Dataframe containing employee sales data.
+    :type df_expertise_calls: DataFrame
     :param df2: Second DataFrame containing employee info.
     :type df2: DataFrame
-    :param output_path1: Output path for IT department data.
-    :type output_path1: str
-    :param output_path2: Output path for Marketing department address info.
-    :type output_path2: str
-    :param output_path3: Output path for department breakdown report.
-    :type output_path3: str
+    :param output_path_dataset_one: Output path for employees selling IT products.
+    :type output_path_dataset_one: str
+    :param output_path_dataset_two: Output path for employees selling Marketing products.
+    :type output_path_dataset_two: str
+    :param output_path_dataset_three: Output path for department breakdown report.
+    :type output_path_dataset_three: str
     :param df3: Optional third DataFrame, defaults to None.
     :type df3: DataFrame, optional
     """
@@ -27,17 +27,17 @@ class OutputProcessor:
         self,
         df_expertise_calls: DataFrame,
         df_personal_sales: DataFrame,
-        input_path_dataset_one: str,
-        input_path_dataset_two: str,
-        input_path_dataset_three: str = None,
+        output_path_dataset_one: str,
+        output_path_dataset_two: str,
+        output_path_dataset_three: str = None,
         df3: DataFrame = None,
     ):
         self.df_expertise_calls = df_expertise_calls
         self.df_personal_sales = df_personal_sales
-        self.input_path_dataset_one = input_path_dataset_one
-        self.input_path_dataset_two = input_path_dataset_two
+        self.output_path_dataset_one = output_path_dataset_one
+        self.output_path_dataset_two = output_path_dataset_two
         self.df3 = df3
-        self.outputpath3 = input_path_dataset_three
+        self.outputpath3 = output_path_dataset_three
         self.df_employee_info = self._join_df_expertise_df_personal()
 
     def _join_df_expertise_df_personal(self) -> DataFrame:
@@ -78,12 +78,12 @@ class OutputProcessor:
             .drop("emp_id")
         )
         if df_it_data.count() == 100:
-            logger.info("Successfully processed top 100 agents selling IT products.")
+            logger.info("Successfully processed top 100 employees selling IT products.")
         else:
             logger.warning(
                 f"There are {df_it_data.count} records. Check your logs and csv files."
             )
-        write_csv(df_it_data, "it_data", self.input_path_dataset_one)
+        write_csv(df_it_data, "it_data", self.output_path_dataset_one)
 
     def process_marketing_address_info(self) -> None:
         """
@@ -108,7 +108,7 @@ class OutputProcessor:
         df_marketing_address = df_marketing_address.select("address", "zip_code")
 
         write_csv(
-            df_marketing_address, "marketing_address_info", self.input_path_dataset_two
+            df_marketing_address, "marketing_address_info", self.output_path_dataset_two
         )
 
     def process_department_breakdown(self) -> None:

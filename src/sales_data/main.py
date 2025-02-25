@@ -1,5 +1,5 @@
 from sales_data.config import OUTPUT_FILE, logger, spark
-from sales_data.datasets_validator import DatasetValidator
+from sales_data.dataset_validator import DatasetValidator
 from sales_data.output_processor import OutputProcessor
 from sales_data.models import (
     sch_expertise_calls,
