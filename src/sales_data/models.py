@@ -9,7 +9,7 @@ from pyspark.sql.types import (
 
 
 # Pydantic Models for validation
-class EmployeeExpertiseAndCallsInfo(BaseModel):
+class EmployeeExpertiseCalls(BaseModel):
     """
     Pydantic model for validating employee expertise and calls info.
 
@@ -51,7 +51,7 @@ class EmployeeExpertiseAndCallsInfo(BaseModel):
             return area.capitalize()
 
 
-class EmployePersonalAndSalesInfo(BaseModel):
+class EmployeePersonalInfo(BaseModel):
     """
     Pydantic model for validating employee personal and sales records.
 
@@ -84,7 +84,7 @@ Schema definition for the Employee Expertise and Calls dataset.
 - `calls_made` (int, optional): Number of calls made by the employee.
 - `calls_successful` (int, optional): Number of successful calls.
 """
-sch_emp_exp_calls = StructType(
+sch_expertise_calls = StructType(
     [
         StructField("id", IntegerType(), False),
         StructField("area", StringType(), False),
@@ -100,7 +100,7 @@ Schema definition for the Employee Personal and Sales dataset.
 - `address` (str, required): Employee's address.
 - `sales_amount` (float, optional): Total sales made by the employee.
 """
-sch_emp_per_sales = StructType(
+sch_personal_sales = StructType(
     [
         StructField("id", IntegerType(), False),
         StructField("name", StringType(), False),

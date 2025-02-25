@@ -4,8 +4,8 @@ from pyspark.sql.functions import col
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 from unittest.mock import patch
 import chispa
-from sales_data.utils import ReadAndValidateCsvData
-from sales_data.models import EmployeeExpertiseAndCallsInfo
+from sales_data.models import EmployeeExpertiseCalls
+from sales_data.datasets_validator import DatasetValidator
 
 
 @pytest.fixture(scope="session")
@@ -30,11 +30,11 @@ def df_schema():
 @pytest.fixture
 def PydanticModel():
     """Fixture to define a Pydantic model for validation"""
-    return EmployeeExpertiseAndCallsInfo
+    return EmployeeExpertiseCalls
 
 
 @pytest.fixture
-def input_path():
+def input_dataset_path():
     """Fixture for the input path of the CSV"""
     return "/path/to/fake/csv"  # Can be mocked during the test
 
@@ -42,7 +42,9 @@ def input_path():
 class TestUtils:
     def test_validate_record_invalid_data(self, df_schema, PydanticModel):
         """Test that a row with wrong data in _validate_record returns None and raises an exception"""
-        read_and_validate = ReadAndValidateCsvData(df_schema, PydanticModel, input_path)
+        read_and_validate = DatasetValidator(
+            df_schema, PydanticModel, input_dataset_path
+        )
 
         invalid_row = {
             "id": 1,
@@ -53,7 +55,7 @@ class TestUtils:
         result = read_and_validate._validate_record(invalid_row)
         assert result is None
 
-    def test_validated_df(self, spark, df_schema, PydanticModel, input_path):
+    def test_validated_df(self, spark, df_schema, PydanticModel, input_dataset_path):
         """Test that the validated DataFrame filters out rows with None values"""
         valid_data = [
             {
@@ -87,10 +89,13 @@ class TestUtils:
         input_data = valid_data + invalid_data
         df = spark.createDataFrame(input_data, df_schema)
 
-        # Mock _read_csv to return the test DataFrame
-        read_and_validate = ReadAndValidateCsvData(df_schema, PydanticModel, input_path)
-        with patch.object(read_and_validate, "_read_csv", return_value=df):
-            validated_df = read_and_validate.validated_df(spark)
+        with patch("sales_data.datasets_validator.read_csv", return_value=df):
+            # Mock read_csv to return df to df_validate
+            read_and_validate = DatasetValidator(
+                df_schema, PydanticModel, input_dataset_path
+            )
+            validated_df = read_and_validate.df_validate(spark)
+
             # Spark changes IntegerType() types to LongType() so need to tranform back
             validated_df = validated_df.select(
                 col("id").cast("int"),
