@@ -42,11 +42,13 @@ def run_etl(
         f"{OUTPUT_FILE}/it_data",
         f"{OUTPUT_FILE}/marketing_address_info",
         f"{OUTPUT_FILE}/department_breakdown",
+        f"{OUTPUT_FILE}/top_3",
     )
 
     # Process all outputs sequentially
-    process_outputs.run_all_outputs()
     # process_outputs.run_all_outputs()
+
+    process_outputs.process_top_three_per_dpt()
     logger.info("Closing Application...")
 
 

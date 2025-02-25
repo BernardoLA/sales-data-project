@@ -393,3 +393,26 @@ py4j.protocol.Py4JNetworkError: Error while sending or receiving
 2025-02-25 22:09:26,275 - INFO - Writing Output department_breakdown to location: data/output/department_breakdown
 2025-02-25 22:09:37,902 - INFO - Closing Application...
 2025-02-25 22:09:37,922 - INFO - Closing down clientserver connection
+2025-02-25 23:28:23,269 - INFO - Validating dataset_one with Pydantic.
+2025-02-25 23:28:27,924 - INFO - There were no invalid records found in dataset_one
+2025-02-25 23:28:28,021 - INFO - Validating dataset_two with Pydantic.
+2025-02-25 23:28:28,249 - INFO - There were no invalid records found in dataset_two
+2025-02-25 23:28:28,306 - INFO - Processing Outputs sequentially...
+2025-02-25 23:28:28,413 - INFO - Processing top 3 employees per department...
+2025-02-25 23:28:28,776 - INFO - Closing down clientserver connection
+2025-02-25 23:31:01,137 - INFO - Validating dataset_one with Pydantic.
+2025-02-25 23:31:04,509 - INFO - There were no invalid records found in dataset_one
+2025-02-25 23:31:04,616 - INFO - Validating dataset_two with Pydantic.
+2025-02-25 23:31:04,857 - INFO - There were no invalid records found in dataset_two
+2025-02-25 23:31:04,928 - INFO - Processing Outputs sequentially...
+2025-02-25 23:31:05,013 - INFO - Processing top 3 employees per department...
+2025-02-25 23:31:05,180 - INFO - Closing down clientserver connection
+2025-02-25 23:34:41,843 - INFO - Validating dataset_one with Pydantic.
+2025-02-25 23:34:45,317 - INFO - There were no invalid records found in dataset_one
+2025-02-25 23:34:45,421 - INFO - Validating dataset_two with Pydantic.
+2025-02-25 23:34:45,634 - INFO - There were no invalid records found in dataset_two
+2025-02-25 23:34:45,691 - INFO - Processing Outputs sequentially...
+2025-02-25 23:34:45,781 - INFO - Processing top 3 employees per department...
+2025-02-25 23:34:45,957 - INFO - Writing Output top_three_per_department to location: data/output/top_three_per_department
+2025-02-25 23:35:01,136 - INFO - Closing Application...
+2025-02-25 23:35:01,147 - INFO - Closing down clientserver connection
