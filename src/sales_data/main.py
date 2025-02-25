@@ -15,7 +15,6 @@ def run_etl(
     input_path_dataset_two: str,
     input_path_dataset_three: str = None,
 ):
-    logger.info("Starting Application...")
     ## Read all csv files and validate records
     # Validate with Pydantic lines with bad input
 
@@ -34,7 +33,7 @@ def run_etl(
     logger.info(f"Validating {employee_personal_sales.dataset_name} with Pydantic.")
     df_personal_sales_validated = employee_personal_sales.validate_df(spark)
 
-    logger.info("Processing outputs sequentially...")
+    logger.info("Processing Outputs sequentially...")
 
     # Create Output Processor instance
     process_outputs = OutputProcessor(
@@ -47,6 +46,7 @@ def run_etl(
 
     # Process all outputs sequentially
     process_outputs.run_all_outputs()
+    # process_outputs.run_all_outputs()
     logger.info("Closing Application...")
 
 
@@ -54,7 +54,9 @@ def run_etl(
 @click.argument("dataset_one_path")
 @click.argument("dataset_two_path")
 def sales_data(dataset_one_path: str, dataset_two_path: str):
-    click.echo(f"Processing datasets: \n - {dataset_one_path}\n - {dataset_two_path}")
+    click.echo(
+        f"Starting pipelines for datasets: \n - {dataset_one_path}\n - {dataset_two_path}"
+    )
     run_etl(dataset_one_path, dataset_two_path)
 
 
