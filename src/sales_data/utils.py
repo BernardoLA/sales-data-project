@@ -1,8 +1,5 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.types import StructType
-from pydantic import BaseModel
-from typing import Optional
-from sales_data.config import logger
 
 
 def read_csv(
