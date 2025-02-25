@@ -55,7 +55,7 @@ class TestUtils:
         result = read_and_validate._validate_record(invalid_row)
         assert result is None
 
-    def test_validated_df(self, spark, df_schema, PydanticModel, input_dataset_path):
+    def test_validate_df(self, spark, df_schema, PydanticModel, input_dataset_path):
         """Test that the validated DataFrame filters out rows with None values"""
         valid_data = [
             {
@@ -94,7 +94,7 @@ class TestUtils:
             read_and_validate = DatasetValidator(
                 df_schema, PydanticModel, input_dataset_path
             )
-            validated_df = read_and_validate.df_validate(spark)
+            validated_df = read_and_validate.validate_df(spark)
 
             # Spark changes IntegerType() types to LongType() so need to tranform back
             validated_df = validated_df.select(
