@@ -5,7 +5,7 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 from unittest.mock import patch
 import chispa
 from sales_data.utils import ReadAndValidateCsvData
-from sales_data.models import EmployeeExpertiseAndCallsInfo
+from sales_data.models import EmployeeExpertiseCalls
 
 
 @pytest.fixture(scope="session")
@@ -30,7 +30,7 @@ def df_schema():
 @pytest.fixture
 def PydanticModel():
     """Fixture to define a Pydantic model for validation"""
-    return EmployeeExpertiseAndCallsInfo
+    return EmployeeExpertiseCalls
 
 
 @pytest.fixture
