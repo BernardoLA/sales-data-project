@@ -5,60 +5,34 @@ This project is part of a data engineering assignment and involves processing 3 
 
 ## Installation
 
-OS X & Linux:
+### Pre requisites
+* Python 3.10
+* Pyspark (Check online how to install Spark locally)
 
-```sh
-npm install my-crazy-module --save
+### Steps
+* Clone the repository:
+* ```
+  git clone https://github.com/BernardoLA/sales-data-project
+  cd <project directory>
+  ```
+* Create virtual environment
+  ```
+  python -m venv venv
+  src\Scripts\activate # windows
+  source venv/bin/activate  # macOS/Linux
+  ```
+* Install dependencies of the project
+  ```
+  pip install -r requirements.txt
+  ```
+
+### Usage
+To run the pipelines and process all outputs you need to provide the paths to the the two datasets:
 ```
-
-Windows:
-
-```sh
-edit autoexec.bat
+python sales_data/main.py "path/to/dataset_one.csv" "path/to/dataset_two.csv"
 ```
-
-## Usage example
-
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
-
-_For more examples and usage, please refer to the [Wiki][wiki]._
-
-## Development setup
-
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
-
-```sh
-make install
-npm test
+Alternatively, it's possible to install this project as package from the root direcoty and run it by it's entry point:
 ```
-
-## Release History
-
-* 0.2.1
-    * CHANGE: Update docs (module code remains unchanged)
-* 0.2.0
-    * CHANGE: Remove `setDefaultXYZ()`
-    * ADD: Add `init()`
-* 0.1.1
-    * FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!)
-* 0.1.0
-    * The first proper release
-    * CHANGE: Rename `foo()` to `bar()`
-* 0.0.1
-    * Work in progress
-
-## Meta
-
-Your Name – [@YourTwitter](https://twitter.com/dbader_org) – YourEmail@example.com
-
-Distributed under the XYZ license. See ``LICENSE`` for more information.
-
-[https://github.com/yourname/github-link](https://github.com/dbader/)
-
-## Contributing
-
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+pip install -e .
+sales-data "path/to/dataset_one.csv" "path/to/dataset_two.csv"
+```
