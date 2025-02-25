@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="sales_data_pipeline",
+    name="abn_sales_data_pipeline",
     version="0.1.0",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
@@ -21,4 +21,8 @@ setup(
     },
     entry_points={"console_scripts": ["sales-data=sales_data.main:sales_data"]},
     python_requires="==3.10.10",
+    description="A pipeline for processing assignment sales data.",
+    author="Bernardo Leivas",
+    author_email="bernardoleivas@gmail.com",
+    url="https://github.com/BernardoLA/sales-data-project",
 )
