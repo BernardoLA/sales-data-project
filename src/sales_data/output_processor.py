@@ -228,3 +228,4 @@ class OutputProcessor:
         self.process_it_data()
         self.process_marketing_address_info()
         self.process_department_breakdown()
+        self.process_top_three_per_dpt()
