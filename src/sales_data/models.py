@@ -71,8 +71,6 @@ class EmployeePersonalInfo(BaseModel):
         examples=[
             "Pienlaan 5, 7356 GF, Kerkdriel",
             "3255 WJ, Hillegom",
-            "32559 WJ, Hillegom",
-            "3255WJ, Hillegom",
         ],
         description="Employee's address",
     )
