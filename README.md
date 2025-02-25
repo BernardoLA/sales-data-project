@@ -1,4 +1,4 @@
-# Sales data pipeline 
+# Programming Exercise using PySpark
 
 This project is part of a data engineering assignment and involves processing 3 CSV files and extracting insights from the data. The main goal of the solution is to leverage best practices such as unit testing, data validation (Pydantic), logging, packaging, CI automation and clean code.
 
