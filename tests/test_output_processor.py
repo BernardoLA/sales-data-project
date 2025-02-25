@@ -90,6 +90,7 @@ class TestOutputProcessor:
                 "dummy pathone",
                 "dummy pathtwo",
                 "dummy paththree",
+                "dummy pathfour",
             )
             process_outputs.process_it_data()
             # Ensure write_csv was called once and check the arguments passed
@@ -122,6 +123,7 @@ class TestOutputProcessor:
                 "dummy pathone",
                 "dummy pathtwo",
                 "dummy paththree",
+                "dummy pathfour",
             )
             process_outputs.process_marketing_address_info()
             # Ensure write_csv was called once and check the arguments passed
@@ -160,6 +162,7 @@ class TestOutputProcessor:
                 "dummy pathone",
                 "dummy pathtwo",
                 "dummy paththree",
+                "dummy pathtfour",
             )
             process_outputs.process_department_breakdown()
             # Ensure write_csv was called once and check the arguments passed
@@ -201,6 +204,7 @@ class TestOutputProcessor:
                 "dummy pathone",
                 "dummy pathtwo",
                 "dummy paththree",
+                "dummy pathfour",
             )
             process_outputs.process_department_breakdown()
             # Ensure write_csv was called once and check the arguments passed
