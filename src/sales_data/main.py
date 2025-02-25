@@ -1,4 +1,4 @@
-from sales_data import INPUT_FILE, OUTPUT_FILE, logger, spark
+from sales_data.config import INPUT_FILE, OUTPUT_FILE, logger, spark
 from sales_data.utils import ReadAndValidateCsvData
 from sales_data.output_processor import OutputProcessor
 from sales_data.models import (
@@ -7,9 +7,14 @@ from sales_data.models import (
     EmployeeExpertiseAndCallsInfo,
     EmployePersonalAndSalesInfo,
 )
+import click
 
 
-def main():
+def run_etl(
+    input_path_dataset_one: str,
+    input_path_dataset_two: str,
+    input_path_dataset_three: str = None,
+):
     logger.info("Starting Application...")
     ## Read all csv files and validate records
     # Validate with Pydantic lines with bad input
@@ -17,10 +22,10 @@ def main():
     employee_expertise_data = ReadAndValidateCsvData(
         sch_emp_exp_calls,
         EmployeeExpertiseAndCallsInfo,
-        f"{INPUT_FILE}\dataset_one.csv",
+        input_path_dataset_one,
     )
     employee_personal_data = ReadAndValidateCsvData(
-        sch_emp_per_sales, EmployePersonalAndSalesInfo, f"{INPUT_FILE}\dataset_two.csv"
+        sch_emp_per_sales, EmployePersonalAndSalesInfo, input_path_dataset_two
     )
     # Store df with employee expertise data (dataset_one)
     df_expertise_validated_data = employee_expertise_data.validated_df(spark)
@@ -41,5 +46,14 @@ def main():
     logger.info("Closing Application...")
 
 
+@click.command()
+@click.argument("dataset_one_path")
+@click.argument("dataset_two_path")
+def sales_data(dataset_one_path: str, dataset_two_path: str):
+    click.echo(f"Processing datasets: \n - {dataset_one_path}\n - {dataset_two_path}")
+
+    run_etl(dataset_one_path, dataset_two_path)
+
+
 if __name__ == "__main__":
-    main()
+    sales_data()
