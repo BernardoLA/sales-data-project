@@ -45,10 +45,7 @@ def run_etl(
         f"{OUTPUT_FILE}/top_3",
     )
 
-    # Process all outputs sequentially
-    # process_outputs.run_all_outputs()
-
-    process_outputs.process_top_three_per_dpt()
+    process_outputs.run_all_outputs()
     logger.info("Closing Application...")
 
 

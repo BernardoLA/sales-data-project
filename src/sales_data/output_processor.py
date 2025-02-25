@@ -210,9 +210,7 @@ class OutputProcessor:
         df_top_three = df_selected.filter(col("rank") <= 3)
 
         # Save results
-        write_csv(
-            df_top_three, "top_three_per_department", self.output_path_dataset_four
-        )
+        write_csv(df_top_three, "top_three", self.output_path_dataset_four)
 
     def run_all_outputs(self) -> None:
         """
