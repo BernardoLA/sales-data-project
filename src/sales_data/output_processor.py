@@ -1,5 +1,5 @@
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import desc, regexp_extract, sum, col, round
+from pyspark.sql.functions import desc, regexp_extract, sum, col, round, length
 from pyspark.sql.types import DoubleType
 from sales_data.utils import write_csv
 from sales_data.config import logger
@@ -66,27 +66,34 @@ class OutputProcessor:
 
         - Filters `self.df_employee_info` by employees selling IT products.
         - Selects top 100 employees based on sales amount (descending order).
-        - Write CSV to `self.outputpath1`.
+        - Write CSV to `self.output_path_dataset_one`.
 
         :return: None
         """
-        logger.info("Processing output it data...")
+        logger.info("Processing Output it data...")
         df_it_data = (
             self.df_employee_info.filter(self.df_employee_info["area"] == "IT")
             .orderBy(desc("sales_amount"))
             .limit(100)
             .drop("emp_id")
         )
-        if df_it_data.count() == 100:
-            logger.info("Successfully processed top 100 employees selling IT products.")
-        else:
-            logger.warning(
-                f"There are {df_it_data.count} records. Check your logs and csv files."
+        min_top100_sales = (
+            df_it_data.select("sales_amount")
+            .agg({"sales_amount": "min"})
+            .collect()[0][0]
+        )
+
+        if min_top100_sales <= 0:
+            logger.critical(
+                "Stopping the application. Zero sales are not expected. The data in dataset two needs to be checked."
             )
+            raise Exception
+
+        logger.info("Successfully processed top 100 employees selling it products.")
         write_csv(df_it_data, "it_data", self.output_path_dataset_one)
 
     def process_marketing_address_info(self) -> None:
-        """
+        """)
         Extracts the zip code from the address column for Marketing employees and saves the result.
 
         - Filter `self.df_employee_info` by Marketing employees.
@@ -95,7 +102,7 @@ class OutputProcessor:
 
         :return: None
         """
-        logger.info("Processing output marketing address info...")
+        logger.info("Processing Output marketing address info...")
 
         zip_code_pattern = r"(\d{4} [A-Z]{2})"
         df_marketing_address = self.df_employee_info.filter(
@@ -107,6 +114,15 @@ class OutputProcessor:
         )
         df_marketing_address = df_marketing_address.select("address", "zip_code")
 
+        if df_marketing_address.filter(length(col("zip_code")) != 7).count() != 0:
+            logger.warning(
+                "There are non Dutch zip codes.\nCheck logs for incorrect addresses."
+            )
+
+        else:
+            logger.info(
+                "Sucessfully processed addresses and zip codes of employees selling marketing products."
+            )
         write_csv(
             df_marketing_address, "marketing_address_info", self.output_path_dataset_two
         )
@@ -140,6 +156,14 @@ class OutputProcessor:
                 "success_rate (%)", round(col("success_rate (%)"), 2).cast(DoubleType())
             )
             .orderBy(["sales_amount", "success_rate (%)"], ascending=[False, False])
+        )
+        if df_dpt_breakdown.filter(col("success_rate (%)") > 100).count() > 0:
+            logger.critical(
+                "Stopping the application. Success Rate above 100 percent is not possible.\nThe data in datasets one and two needs to be checked."
+            )
+            raise Exception
+        logger.info(
+            "Sucessfully processed sales and calls success rate per department."
         )
         write_csv(df_dpt_breakdown, "department_breakdown", self.outputpath3)
 
