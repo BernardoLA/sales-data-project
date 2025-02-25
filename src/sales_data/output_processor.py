@@ -1,5 +1,5 @@
-from pyspark.sql import DataFrame
-from pyspark.sql.functions import desc, regexp_extract, sum, col, round, length
+from pyspark.sql import DataFrame, Window
+from pyspark.sql.functions import desc, regexp_extract, sum, col, round, length, rank
 from pyspark.sql.types import DoubleType
 from sales_data.utils import write_csv
 from sales_data.config import logger
@@ -29,15 +29,16 @@ class OutputProcessor:
         df_personal_sales: DataFrame,
         output_path_dataset_one: str,
         output_path_dataset_two: str,
-        output_path_dataset_three: str = None,
+        output_path_dataset_three: str,
+        output_path_dataset_four: str,
         df3: DataFrame = None,
     ):
         self.df_expertise_calls = df_expertise_calls
         self.df_personal_sales = df_personal_sales
         self.output_path_dataset_one = output_path_dataset_one
         self.output_path_dataset_two = output_path_dataset_two
-        self.df3 = df3
-        self.outputpath3 = output_path_dataset_three
+        self.output_path_dataset_three = output_path_dataset_three
+        self.output_path_dataset_four = output_path_dataset_four
         self.df_employee_info = self._join_df_expertise_df_personal()
 
     def _join_df_expertise_df_personal(self) -> DataFrame:
@@ -93,7 +94,7 @@ class OutputProcessor:
         write_csv(df_it_data, "it_data", self.output_path_dataset_one)
 
     def process_marketing_address_info(self) -> None:
-        """)
+        """
         Extracts the zip code from the address column for Marketing employees and saves the result.
 
         - Filter `self.df_employee_info` by Marketing employees.
@@ -136,7 +137,7 @@ class OutputProcessor:
         - Calculates the success rate of calls as a percentage.
         - Sorts results by sales amount and success rate.
         - Saves the processed data to CSV.
-        - Writes CSV to `self.outputpath3`
+        - Writes CSV to `self.output_path_dataset_three`
 
         :return: None
         """
@@ -165,7 +166,51 @@ class OutputProcessor:
         logger.info(
             "Sucessfully processed sales and calls success rate per department."
         )
-        write_csv(df_dpt_breakdown, "department_breakdown", self.outputpath3)
+        write_csv(
+            df_dpt_breakdown, "department_breakdown", self.output_path_dataset_three
+        )
+
+    def process_top_three_per_dpt(self) -> None:
+        """
+        Selects the top 3 employees per department based on successful call rates.
+
+        - Calculates the rate of successful calls per employee.
+        - Ranks employees within each department by their success rate.
+        - Brings back sales-related columns.
+        - Filters for top 3 employees per department.
+        - Saves the results.
+
+        :return: None
+        """
+        logger.info("Processing top 3 employees per department...")
+
+        # Step 1: Calculate the rate of successful calls per employee
+        df_employee_rate = self.df_employee_info.withColumn(
+            "rate_successful_calls (%)",
+            (col("calls_successful") / col("calls_made") * 100),
+        )
+
+        # Step 2: Define a partition by department and rank employees within each department
+        window_spec = Window.partitionBy("area").orderBy(
+            col("rate_successful_calls (%)").desc()
+        )
+
+        df_ranked = df_employee_rate.withColumn("rank", rank().over(window_spec))
+
+        # Step 3: Select relevant columns (including sales data)
+        df_selected = df_ranked.select(
+            "id",
+            "area",
+            "rate_successful_calls (%)",
+            "sales_amount",
+            "rank",
+        )
+
+        # Step 4: Filter for employees ranked in the top 3 per department
+        df_top_three = df_selected.filter(col("rank") <= 3)
+
+        # Save results
+        write_csv(df_top_three, "top_three", self.output_path_dataset_four)
 
     def run_all_outputs(self) -> None:
         """
@@ -181,3 +226,4 @@ class OutputProcessor:
         self.process_it_data()
         self.process_marketing_address_info()
         self.process_department_breakdown()
+        self.process_top_three_per_dpt()
