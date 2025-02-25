@@ -5,52 +5,6 @@ from typing import Optional
 from sales_data.config import logger
 
 
-class ReadAndValidateCsvData:
-    def __init__(
-        self,
-        df_schema: StructType,
-        PydanticModel: BaseModel,
-        input_path: str,
-    ):
-        self.df_schema = df_schema
-        self.PydanticModel = PydanticModel
-        self.input_path = input_path
-
-    def _read_csv(self, spark: DataFrame) -> DataFrame:
-        """
-        Read a CSV file into a Spark DataFrame.
-        Args:
-            spark (SparkSession): The Spark session.
-            input_path (str): The path to the CSV file.
-        Returns:
-            pyspark.sql.DataFrame: The loaded DataFrame.
-        """
-        return (
-            spark.read.schema(self.df_schema)
-            .option("header", "true")
-            .csv(self.input_path)
-        )
-
-    def _validate_record(self, row: dict) -> Optional[dict]:
-        """Validate a single row using Pydantic"""
-        try:
-            validated = self.PydanticModel(**row)
-            return validated.model_dump()
-        except (ValueError, AttributeError) as e:
-            logger.error(f"Validation Error: {e} | Row: {row} ")
-            return None
-
-    def validated_df(self, spark: SparkSession):
-        """Create new spark dataframe dropping None rows"""
-        dataframe = self._read_csv(spark)
-        validated_data = [
-            self._validate_record(row.asDict()) for row in dataframe.collect()
-        ]
-        validated_data = [row for row in validated_data if row]
-
-        return spark.createDataFrame(validated_data)
-
-
 def read_csv(
     spark: SparkSession, df_schema: StructType, dataset_path: str
 ) -> DataFrame:

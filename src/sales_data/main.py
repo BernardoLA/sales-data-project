@@ -28,7 +28,7 @@ def run_etl(
         sch_personal_sales, EmployeePersonalInfo, input_path_dataset_two
     )
 
-    logger.info("Validating datasets with Pydantic...")
+    logger.info("Validating input datasets with Pydantic...")
     # Store df with employee expertise data (dataset_one)
     df_expertise_calls_validated = employee_expertise_calls.df_validate(spark)
 
