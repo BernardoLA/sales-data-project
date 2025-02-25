@@ -1,4 +1,4 @@
-from sales_data.config import INPUT_FILE, OUTPUT_FILE, logger, spark
+from sales_data.config import OUTPUT_FILE, logger, spark
 from sales_data.utils import ReadAndValidateCsvData
 from sales_data.output_processor import OutputProcessor
 from sales_data.models import (
