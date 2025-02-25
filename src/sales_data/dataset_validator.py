@@ -16,6 +16,7 @@ class DatasetValidator:
         self.df_schema = df_schema
         self.PydanticModel = PydanticModel
         self.dataset_path = dataset_path
+        self.dataset_name = self.extract_dataset_name()
 
     def _validate_record(self, row: dict) -> Optional[dict]:
         """Validate a single row using Pydantic"""
@@ -23,15 +24,29 @@ class DatasetValidator:
             validated = self.PydanticModel(**row)
             return validated.model_dump()
         except (ValueError, AttributeError) as e:
-            logger.error(f"Validation Error: {e} | Row: {row} ")
+            logger.error(f"{e} | Row: {row} ")
             return None
 
-    def df_validate(self, spark: SparkSession):
+    def validate_df(self, spark: SparkSession):
         """Create new spark dataframe dropping None rows"""
         dataframe = read_csv(spark, self.df_schema, self.dataset_path)
-        validated_data = [
+        valid_and_invalid_data = [
             self._validate_record(row.asDict()) for row in dataframe.collect()
         ]
-        validated_data = [row for row in validated_data if row]
+        valid_data = [row for row in valid_and_invalid_data if row]
+        invalid_records = len(valid_and_invalid_data) - len(valid_data)
 
-        return spark.createDataFrame(validated_data)
+        if invalid_records > 0:
+            logger.warning(
+                f"A total of {invalid_records} invalid records excluded from dataset {self.dataset_name}"
+            )
+        else:
+            logger.info(f"There were no invalid records found in {self.dataset_name}")
+
+        return spark.createDataFrame(valid_data)
+
+    def extract_dataset_name(self) -> str:
+        """Extract dataset name from dataset_path"""
+        dataset_csv = self.dataset_path.split("\\")[-1]
+        dataset = dataset_csv.replace(".csv", "")
+        return dataset

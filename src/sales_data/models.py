@@ -68,7 +68,10 @@ class EmployeePersonalInfo(BaseModel):
     id: int = Field(examples=[1], description="Employee's id", gt=0)
     name: str = Field(examples=["Berat Hakker"], description="Employee's name")
     address: str = Field(
-        examples=["Pienlaan 5, 7356 GF, Kerkdriel", "3255 WJ, Hillegom"],
+        examples=[
+            "Pienlaan 5, 7356 GF, Kerkdriel",
+            "3255 WJ, Hillegom",
+        ],
         description="Employee's address",
     )
     sales_amount: float = Field(
@@ -104,7 +107,7 @@ sch_personal_sales = StructType(
     [
         StructField("id", IntegerType(), False),
         StructField("name", StringType(), False),
-        StructField("address", StringType(), False),
+        StructField("address", StringType(), True),
         StructField("sales_amount", FloatType(), True),
     ]
 )

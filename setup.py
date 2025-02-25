@@ -21,7 +21,7 @@ setup(
     },
     entry_points={"console_scripts": ["sales-data=sales_data.main:sales_data"]},
     python_requires="==3.10.10",
-    description="A pipeline for processing assignment sales data.",
+    description="An application designed for ABN AMRO Data Engineering assingment.",
     author="Bernardo Leivas",
     author_email="bernardoleivas@gmail.com",
     url="https://github.com/BernardoLA/sales-data-project",

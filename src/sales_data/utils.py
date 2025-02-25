@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.types import StructType
+from sales_data.config import logger
 
 
 def read_csv(
@@ -16,11 +17,12 @@ def read_csv(
     return spark.read.schema(df_schema).option("header", "true").csv(dataset_path)
 
 
-def write_csv(df: DataFrame, output_dir: str) -> None:
+def write_csv(df: DataFrame, output_name: str, output_dir: str) -> None:
     """
     Write a DataFrame to a CSV file in the specified directory.
     Args:
         df (DataFrame): The DataFrame to be written.
         output_dir (str): The output directory where the file will be saved.
     """
+    logger.info(f"Writing Output {output_name} to location: data/output/{output_name}")
     df.coalesce(1).write.mode("overwrite").option("header", "true").csv(output_dir)
