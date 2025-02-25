@@ -1,5 +1,5 @@
 from sales_data.config import OUTPUT_FILE, logger, spark
-from sales_data.datasets_validator import DatasetValidator
+from sales_data.dataset_validator import DatasetValidator
 from sales_data.output_processor import OutputProcessor
 from sales_data.models import (
     sch_expertise_calls,
@@ -15,7 +15,6 @@ def run_etl(
     input_path_dataset_two: str,
     input_path_dataset_three: str = None,
 ):
-    logger.info("Starting Application...")
     ## Read all csv files and validate records
     # Validate with Pydantic lines with bad input
 
@@ -28,14 +27,15 @@ def run_etl(
         sch_personal_sales, EmployeePersonalInfo, input_path_dataset_two
     )
 
-    logger.info("Validating input datasets with Pydantic...")
-    # Store df with employee expertise data (dataset_one)
-    df_expertise_calls_validated = employee_expertise_calls.df_validate(spark)
+    logger.info(f"Validating {employee_expertise_calls.dataset_name} with Pydantic.")
+    df_expertise_calls_validated = employee_expertise_calls.validate_df(spark)
 
-    # Store df with employee expertise data (dataset_two)
-    df_personal_sales_validated = employee_personal_sales.df_validate(spark)
+    logger.info(f"Validating {employee_personal_sales.dataset_name} with Pydantic.")
+    df_personal_sales_validated = employee_personal_sales.validate_df(spark)
 
-    ## Process the outputs
+    logger.info("Processing Outputs sequentially...")
+
+    # Create Output Processor instance
     process_outputs = OutputProcessor(
         df_expertise_calls_validated,
         df_personal_sales_validated,
@@ -43,8 +43,10 @@ def run_etl(
         f"{OUTPUT_FILE}/marketing_address_info",
         f"{OUTPUT_FILE}/department_breakdown",
     )
-    # process_outputs.process_it_data(f"{OUTPUT_FILE}/it_data")
+
+    # Process all outputs sequentially
     process_outputs.run_all_outputs()
+    # process_outputs.run_all_outputs()
     logger.info("Closing Application...")
 
 
@@ -52,8 +54,9 @@ def run_etl(
 @click.argument("dataset_one_path")
 @click.argument("dataset_two_path")
 def sales_data(dataset_one_path: str, dataset_two_path: str):
-    click.echo(f"Processing datasets: \n - {dataset_one_path}\n - {dataset_two_path}")
-
+    click.echo(
+        f"Starting pipelines for datasets: \n - {dataset_one_path}\n - {dataset_two_path}"
+    )
     run_etl(dataset_one_path, dataset_two_path)
 
 

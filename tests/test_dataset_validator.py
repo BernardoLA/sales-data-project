@@ -5,7 +5,7 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 from unittest.mock import patch
 import chispa
 from sales_data.models import EmployeeExpertiseCalls
-from sales_data.datasets_validator import DatasetValidator
+from sales_data.dataset_validator import DatasetValidator
 
 
 @pytest.fixture(scope="session")
@@ -36,14 +36,14 @@ def PydanticModel():
 @pytest.fixture
 def input_dataset_path():
     """Fixture for the input path of the CSV"""
-    return "/path/to/fake/csv"  # Can be mocked during the test
+    return "/path/to/fake/csv"
 
 
-class TestUtils:
+class TestDatasetValidator:
     def test_validate_record_invalid_data(self, df_schema, PydanticModel):
         """Test that a row with wrong data in _validate_record returns None and raises an exception"""
         read_and_validate = DatasetValidator(
-            df_schema, PydanticModel, input_dataset_path
+            df_schema, PydanticModel, "/path/to/fake/csv"
         )
 
         invalid_row = {
@@ -55,7 +55,7 @@ class TestUtils:
         result = read_and_validate._validate_record(invalid_row)
         assert result is None
 
-    def test_validated_df(self, spark, df_schema, PydanticModel, input_dataset_path):
+    def test_validate_df(self, spark, df_schema, PydanticModel, input_dataset_path):
         """Test that the validated DataFrame filters out rows with None values"""
         valid_data = [
             {
@@ -89,12 +89,12 @@ class TestUtils:
         input_data = valid_data + invalid_data
         df = spark.createDataFrame(input_data, df_schema)
 
-        with patch("sales_data.datasets_validator.read_csv", return_value=df):
+        with patch("sales_data.dataset_validator.read_csv", return_value=df):
             # Mock read_csv to return df to df_validate
             read_and_validate = DatasetValidator(
                 df_schema, PydanticModel, input_dataset_path
             )
-            validated_df = read_and_validate.df_validate(spark)
+            validated_df = read_and_validate.validate_df(spark)
 
             # Spark changes IntegerType() types to LongType() so need to tranform back
             validated_df = validated_df.select(
