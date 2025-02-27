@@ -29,7 +29,7 @@ This project is part of a data engineering assignment and involves processing 3 
 ### Usage
 To run the pipelines and process all outputs it's needed to provide the paths to the two datasets:
 ```
-python sales_data/main.py "path/to/dataset_one.csv" "path/to/dataset_two.csv"
+python sales_data.main -m "path/to/dataset_one.csv" "path/to/dataset_two.csv"
 ```
 Alternatively, it's possible to install this project as a package from the root directory and run it by its entry point:
 ```
